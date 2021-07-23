@@ -2,7 +2,7 @@
   "name": "SuperGIF",
   "description": "This Chrome extension bundles SuperGIF class from libgif-js and brings basic play controls for animated gifs into your browser.",
   "homepage_url": "https://github.com/tsmolka/supergif-chrome-extension",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "manifest_version": 3,
   "minimum_chrome_version": "88.0",
   "background": {
