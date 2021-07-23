@@ -8,9 +8,9 @@ chrome.runtime.onInstalled.addListener(() => {
       'image'
     ],
     targetUrlPatterns: [
-      // Matching patterns seem to be case sensitive :(
-      '*://*/*.gif',
-      '*://*/*.GIF'
+      // Regex is apparently not supported :(
+      '*://*/*.gif*',
+      '*://*/*.GIF*'
     ]
   });
 });

@@ -871,6 +871,14 @@
       div.appendChild(canvas);
       div.appendChild(toolbar);
 
+      // Special case for GIPHY
+      if (gif.previousElementSibling &&
+          gif.previousElementSibling.tagName == 'VIDEO' &&
+          gif.previousElementSibling.hasAttribute('poster') &&
+          gif.previousElementSibling.getAttribute('poster').replaceAll('giphy_s.gif', 'giphy.gif') === gif.src
+      ) {
+        parent.removeChild(gif.previousElementSibling);
+      }
       parent.insertBefore(div, gif);
       parent.removeChild(gif);
 
@@ -999,6 +1007,8 @@
         var isDragging = false;
 
         canvas.addEventListener((cantouch) ? 'touchstart' : 'mousedown', function (e) {
+          if (e.which !== 1)
+            return;
           e.preventDefault();
 
           var pos = (e.touches && e.touches.length > 0) ? e.touches[0] : e;
@@ -1008,6 +1018,8 @@
         });
 
         canvas.addEventListener((cantouch) ? 'touchend' : 'mouseup', function (e) {
+          if (e.which !== 1)
+            return;
           e.preventDefault();
           var currentTime = e.timeStamp;
           
@@ -1024,6 +1036,8 @@
         });
 
         canvas.addEventListener((cantouch) ? 'touchmove' : 'mousemove', function (e) {
+          if (e.which !== 1)
+            return;
           e.preventDefault();
           
           var pos = (e.touches && e.touches.length > 0) ? e.touches[0] : e;
@@ -1073,10 +1087,10 @@ chrome.runtime.onMessage.addListener((msg) => {
       progressbar_height: 15,
     });
     
-    // Load gif frames into <canvas> ...
+    // Load gif frames into <canvas>
     console.log(`SuperGIF: Loading ${img.src} into ${img.outerHTML}`);
     sup.load_url(img.src, (gif) => {
-      // ... and register <canvas> event handlers
+      // Register <canvas> event handlers
       sup.register_canvas_handers();
     });
   }
